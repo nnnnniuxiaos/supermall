@@ -1,6 +1,6 @@
 <template>
-    <div class="goods-item">
-      <img :src="goodsItem.show.img" alt="niuchaos">
+    <div class="goods-item" @click="itemClick">
+      <img :src="goodsItem.show.img" alt="niuchaos" @load="imageLoad"> 
       <div class="goods-info">
         <p>{{goodsItem.title}}</p>
         <span class="price">{{goodsItem.price}}</span>
@@ -41,7 +41,21 @@ export default {
 
     },
     methods: {
-
+      imageLoad(){
+        //向事件总线发送事件
+        this.$bus.$emit('itemImageLoad')
+      },
+      //携带ID并跳转到详情页
+/*       itemClick(){
+        //this.$router.push('/detail/' + this.goodsItem.iid)
+        //this.$router.push({path:'/detail' ,query:{iid:this.goodsItem.iid}})
+        //console.log(this.goodsItem.iid);
+        
+      } */
+      itemClick() {
+        this.$router.push('/detail/' + this.goodsItem.iid)
+        
+      }
     }
 }
 </script>
